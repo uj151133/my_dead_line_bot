@@ -1,1 +1,4 @@
 discord.py[voice]
+discord.py==2.1.1
+Flask==2.2.3
+
