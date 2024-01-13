@@ -56,7 +56,7 @@ def judge_whether_0minutes_now(now_minutes):
 
 def generate_message(user_to_mention, task, days_to_last):
  member_mention = "<@" + str(user_to_mention) +" >"
- if int(deys_tolast) == 3:
+ if int(days_to_last) == 3:
   return f"{member_mention}さん、{task}が残ってるくさい"
  
 
