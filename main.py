@@ -4,6 +4,7 @@ from keep_alive import keep_alive
 from google.oauth2.service_account import Credentials
 import gspread
 from datetime import timedelta, timezone
+from discord.ext import tasks
 
 @tasks.loop(minutes=1)
 async def loop():
@@ -31,9 +32,9 @@ async def loop():
          user_to_mention = await bot.fetch_user(user_id)
          task = data[3]
          
-         message_add_to_last = generate_message(days_to_last)
+         message = generate_message(user_to_mention, task, days_to_last)
          # アナウンスを行う
-         await announce_deadline(channel, user_to_mention, task, days_to_last, message_add_to_last)
+         await channel.send(message)
 
 # 〆切日数と現在の時間から、アナウンスをするか判定する
 def judge_to_do_announce(days_to_last, now_hour):
@@ -52,6 +53,12 @@ def judge_to_do_announce(days_to_last, now_hour):
 
 def judge_whether_0minutes_now(now_minutes):
     return True if now_minutes == 0 else False
+
+def generate_message(user_to_mention, task, days_to_last):
+ member_mention = "<@" + str(user_to_mention) +" >"
+ if int(deys_tolast) == 3:
+  return f"{member_mention}さん、{task}が残ってるくさい"
+ 
 
 
     
@@ -92,7 +99,9 @@ async def on_ready():
 async def on_message(message):
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    await message.channel.send(spreadsheet.sheet1.get_all_values())
+    data_list = read_from_spreadsheet()
+    
+    await message.channel.send(generate_message(data_list[1][1], data[1][3], data_list[1][2])
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
