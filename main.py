@@ -10,7 +10,7 @@ scopes = [
 ]
 
 credentials = Credentials.from_service_account_file(
-    "./windy-winter-407404-2140fc1dd60b.json/",
+    "windy-winter-407404-2140fc1dd60b.json",
     scopes=scopes
 )
 
