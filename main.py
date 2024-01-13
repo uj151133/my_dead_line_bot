@@ -12,6 +12,7 @@ async def on_ready():
 async def on_message(message):
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
+    await ctx.send(balloon)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
