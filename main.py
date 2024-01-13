@@ -77,7 +77,7 @@ credentials = Credentials.from_service_account_file(
 gc = gspread.authorize(credentials)
 spreadsheet_url = "https://docs.google.com/spreadsheets/d/1TyrjjfosTpoREEX4UFBIH1Y7lgpk_L6L4UU-q5SX-cs/edit?usp=sharing"
 workbook = gc.open_by_url(spreadsheet_url)
-worksheet = worksheet.sheet1
+worksheet = workbook.sheet1
 
 def read_from_spreadsheet():
     return spreadsheet.sheet1.get_all_values()
