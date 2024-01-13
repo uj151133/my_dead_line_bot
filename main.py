@@ -80,7 +80,7 @@ workbook = gc.open_by_url(spreadsheet_url)
 worksheet = workbook.sheet1
 
 def read_from_spreadsheet():
-    return spreadsheet.sheet1.get_all_values()
+    return worksheet.get_all_values()
 
 def decrement_days_to_last() -> None:
     col_list = worksheet.col_values(2)
