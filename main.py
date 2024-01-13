@@ -30,7 +30,7 @@ async def on_ready():
 async def on_message(message):
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    # await message.channel.send(balloon)
+    await message.channel.send(spreadsheet.sheet1.get_all_values())
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
