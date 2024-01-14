@@ -74,7 +74,7 @@ def read_from_spreadsheet():
 def decrement_days_to_last() -> None:
     col_list = worksheet.col_values(2)
     for i in range(1, len(col_list)  - 1):
-        worksheet.update_cell(i, 2, col_list[i] - 1)
+        worksheet.update_cell(i, 2, int(col_list[i]) - 1)
     return
 
 # 返信する非同期関数を定義
