@@ -5,7 +5,10 @@ from google.oauth2.service_account import Credentials
 import gspread
 import datetime
 from datetime import timedelta, timezone, datetime
-from discord.ext import tasks
+from discord.ext import tasks, commands
+
+bot = commands.Bot(command_prefix='/', intents=intents)
+
 
 
 scopes = [
@@ -127,7 +130,7 @@ async def on_message(message):
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
-    
+
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
