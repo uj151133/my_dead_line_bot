@@ -102,11 +102,15 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    balloon = '\N{BALLOON}'
-    await message.add_reaction(balloon)
-    data_list = read_from_spreadsheet()
-    
-    await message.channel.send(generate_message(data_list[1][1], data_list[1][3], data_list[1][2]))
+ # botのメッセージなら何もしない
+ if message.author.bot:
+  return
+
+ balloon = '\N{BALLOON}'
+ await message.add_reaction(balloon)
+ data_list = read_from_spreadsheet()
+ 
+ await message.channel.send(generate_message(data_list[1][1], data_list[1][3], data_list[1][2]))
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
