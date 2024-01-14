@@ -10,7 +10,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-
+client = discord.Client(intents=discord.Intents.default())
 
 scopes = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -44,7 +44,7 @@ def judge_to_do_announce(days_to_last, now_hour):
   return True
 
 def search_channel(channel_id):
-  return int(channel_id)
+  return client.get_channel(channel_id)
 
 def judge_whether_0minutes_now(now_minutes):
     return True if now_minutes == 0 else False
@@ -84,7 +84,7 @@ async def reply(message):
 
 
 
-client = discord.Client(intents=discord.Intents.default())
+
 
 @tasks.loop(minutes=1)
 async def reminder():
@@ -127,10 +127,11 @@ async def on_message(message):
     await message.add_reaction(balloon)
     data_list = read_from_spreadsheet()
     user_to_mention = await client.fetch_user(data_list[1][1])
+    channel = search_channel(int(data_list[1][0])))
     # await reply(message)
     
     # await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
-    await int(data_list[1][0]).send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
+    await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
 
 @bot.command()
 async def ping(ctx):
