@@ -32,7 +32,7 @@ def judge_to_do_announce(days_to_last, now_hour):
   # elif(now_hour == 0):
   #   return True
   # # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
-  # elif(days_to_last < 0 and now_hour % 3 == 0):
+  # elif(int(days_to_last) < 0 and now_hour % 3 == 0):
   #   return now_hour > 8 or now_hour == 0
   # # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
   # else:
@@ -124,7 +124,13 @@ async def on_message(message):
     
     await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
 
+@bot.command()
+async def ping(ctx):
+    await ctx.send('pong')
+    
+
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
 keep_alive()
 client.run(TOKEN)
+
