@@ -130,10 +130,9 @@ async def on_message(message):
     user_to_mention = await client.fetch_user(data_list[1][1])
     channel = search_channel(int(data_list[1][0]))
     # await reply(message)
+    decrement_days_to_last()
+    # await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
     
-    # await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
-    await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
-
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
