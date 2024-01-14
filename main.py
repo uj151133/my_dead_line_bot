@@ -26,17 +26,18 @@ worksheet = workbook.sheet1
 # 〆切日数と現在の時間から、アナウンスをするか判定する
 def judge_to_do_announce(days_to_last, now_hour):
   # 〆切まで4日以上ある場合はアナウンスしない
-  if(days_to_last > 3):
-    return False
-  # 0時ちょうどの場合、アナウンスする
-  elif(now_hour == 0):
-    return True
-  # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
-  elif(days_to_last < 0 and now_hour % 3 == 0):
-    return now_hour > 8 or now_hour == 0
-  # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
-  else:
-    return False
+  # if(int(days_to_last) > 3):
+  #   return False
+  # # 0時ちょうどの場合、アナウンスする
+  # elif(now_hour == 0):
+  #   return True
+  # # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
+  # elif(days_to_last < 0 and now_hour % 3 == 0):
+  #   return now_hour > 8 or now_hour == 0
+  # # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
+  # else:
+  #   return False
+  return True
 
 def judge_whether_0minutes_now(now_minutes):
     return True if now_minutes == 0 else False
