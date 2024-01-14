@@ -79,7 +79,7 @@ async def reply(message):
 client = discord.Client(intents=discord.Intents.default())
 
 @tasks.loop(minutes=1)
-async def loop():
+async def reminder():
   if(client.is_ready):   
     JST = timezone(timedelta(hours=+9), 'JST')
     now_minutes = datetime.now(JST).minute
@@ -107,7 +107,7 @@ async def loop():
 @client.event
 async def on_ready():
   print('ログインしました')
-  loop().start()
+  client.reminder().start()
 
 @client.event
 async def on_message(message):
