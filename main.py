@@ -119,7 +119,7 @@ async def on_message(message):
     await message.add_reaction(balloon)
     data_list = read_from_spreadsheet()
     user_to_mention = await client.fetch_user(data_list[1][1])
-    await reply(message)
+    # await reply(message)
     
     await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
 
