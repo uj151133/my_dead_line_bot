@@ -57,12 +57,16 @@ def judge_whether_0minutes_now(now_minutes):
 def generate_message(user_to_mention, task, days_to_last):
  member_mention = "<@" + str(user_to_mention) + ">"
  if int(days_to_last) == 3:
-  return f"{member_mention}さん、{task}が残ってるくさい"
+  return f"{member_mention}{task}が残ってるくさいよん。{days_to_last}日後だよん。"
+ elif int(days_to_last) == 2:
+  return f"{member_mention}まだ{task}終わってないの？いつになったらやるんかね。あと{days_to_last}日ね。"
+ elif int(days_to_last) == 1:
+  return f"{member_mention}おい前日ににやるなって笑{task}そんなにすぐ終わらんて。今日は寝れないねー。"
+ elif int(days_to_last) == 0:
+  return f"{member_mention}今日だから。よろしくね。"
+ elif int (days_to_last) < 0:
+  return f"{member_mention}おや？おかしいな。"
  
-
-
-    
-    
 
 scopes = [
     'https://www.googleapis.com/auth/spreadsheets',
