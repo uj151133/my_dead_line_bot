@@ -64,8 +64,8 @@ def generate_message(user_to_mention, task, days_to_last):
     return f"{member_mention}おや？おかしいな。"
   
 
-def announce_deadline(channel, message):
-  channel.send(message)
+async def announce_deadline(channel, message):
+  await channel.send(message)
 
 
 def read_from_spreadsheet():
