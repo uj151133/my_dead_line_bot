@@ -97,7 +97,8 @@ async def reminder():
       if(now_hour == 0):
         decrement_days_to_last()
       # 0分の場合、現在時刻と〆切残り日数より、アナウンスを行うか判定する
-      data_list = read_from_spreadsheet()
+      all_data_list = read_from_spreadsheet()
+      data_list = all_data_list[1:]
       for data in data_list:
         days_to_last = data[2]       
         # アナウンスを行うか判定している
