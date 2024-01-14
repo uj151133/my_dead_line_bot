@@ -43,6 +43,9 @@ def judge_to_do_announce(days_to_last, now_hour):
   #   return False
   return True
 
+def search_channel(channel_id):
+  return int(channel_id)
+
 def judge_whether_0minutes_now(now_minutes):
     return True if now_minutes == 0 else False
 
