@@ -129,7 +129,8 @@ async def on_message(message):
     user_to_mention = await client.fetch_user(data_list[1][1])
     # await reply(message)
     
-    await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
+    # await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
+    await data_list[1][0].send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
 
 @bot.command()
 async def ping(ctx):
