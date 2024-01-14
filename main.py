@@ -107,7 +107,7 @@ async def reminder():
 @client.event
 async def on_ready():
   print('ログインしました')
-  client.reminder().start()
+  reminder().start()
 
 @client.event
 async def on_message(message):
