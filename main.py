@@ -111,7 +111,7 @@ async def reminder():
           task = data[3]
           message = generate_message(user_to_mention, task, days_to_last)
           # アナウンスを行う
-          await announce_deadline(channel, message)
+          announce_deadline(channel, message)
 
 @client.event
 async def on_ready():
