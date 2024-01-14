@@ -14,6 +14,7 @@ client = discord.Client(intents=discord.Intents.default())
 
 scopes = [
     'https://www.googleapis.com/auth/spreadsheets',
+    'https://spreadsheets.google.com/feeds',
     'https://www.googleapis.com/auth/drive'
 ]
 
