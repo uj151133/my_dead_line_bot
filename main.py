@@ -71,8 +71,8 @@ def decrement_days_to_last() -> None:
 
 # 返信する非同期関数を定義
 async def reply(message):
-  reply = f'{message.author.mention} 〆切を登録しました。' # 返信メッセージの作成
-  await message.channel.send(reply) # 返信メッセージを送信
+  reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
+  await message.channel.send(reply)  # 返信メッセージを送信
 
 
 
@@ -114,11 +114,12 @@ async def on_message(message):
   # botのメッセージなら何もしない
   if message.author.bot:
     return
-  if client.user in message.mentions: # 話しかけられたかの判定
+  if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
     data_list = read_from_spreadsheet()
     user_to_mention = await client.fetch_user(data_list[1][1])
+    await reply(message)
     
     await message.channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
 
