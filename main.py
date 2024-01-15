@@ -42,7 +42,7 @@ def judge_to_do_announce(days_to_last, now_hour):
     return now_hour > 8 or now_hour == 0
   # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
   else:
-  #   return False
+    return False
   # return True
 
 def search_channel(channel_id):
@@ -128,9 +128,9 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    data_list = read_from_spreadsheet()
-    user_to_mention = await client.fetch_user(data_list[1][1])
-    channel = search_channel(int(data_list[1][0]))
+    # data_list = read_from_spreadsheet()
+    # user_to_mention = await client.fetch_user(data_list[1][1])
+    # channel = search_channel(int(data_list[1][0]))
     await reply(message)
     # decrement_days_to_last()
 
@@ -139,6 +139,7 @@ async def on_message(message):
 @bot.command()
 async def delete_deadline(ctx):
   await ctx.send('pong')
+  pass
 
 bot.add_command(delete_deadline)
 
