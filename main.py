@@ -82,7 +82,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(f"なーに!")  # 返信メッセージを送信
+  await message.channel.send(f"なーに！")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
