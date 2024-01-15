@@ -32,18 +32,18 @@ worksheet = workbook.sheet1
 # 〆切日数と現在の時間から、アナウンスをするか判定する
 def judge_to_do_announce(days_to_last, now_hour):
   # 〆切まで4日以上ある場合はアナウンスしない
-  # if(int(days_to_last) > 3):
+  if(int(days_to_last) > 3):
+    return False
+  # 0時ちょうどの場合、アナウンスする
+  elif(now_hour == 17):
+    return True
+  # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
+  elif(int(days_to_last) < 0 and now_hour % 3 == 0):
+    return now_hour > 8 or now_hour == 0
+  # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
+  else:
   #   return False
-  # # 0時ちょうどの場合、アナウンスする
-  # elif(now_hour == 0):
-  #   return True
-  # # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
-  # elif(int(days_to_last) < 0 and now_hour % 3 == 0):
-  #   return now_hour > 8 or now_hour == 0
-  # # 〆切まで0~3日かつ24時以外の場合、アナウンスしない
-  # else:
-  #   return False
-  return True
+  # return True
 
 def search_channel(channel_id):
   return client.get_channel(channel_id)
@@ -82,7 +82,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(なーに)  # 返信メッセージを送信
+  await message.channel.send("なーに")  # 返信メッセージを送信
 
 
 
