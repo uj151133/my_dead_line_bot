@@ -112,7 +112,7 @@ async def reminder():
           task = data[3]
           message = generate_message(user_to_mention, task, days_to_last)
           # アナウンスを行う
-          announce_deadline(channel, message)
+          await announce_deadline(channel, message)
 
 @client.event
 async def on_ready():
@@ -130,7 +130,7 @@ async def on_message(message):
     data_list = read_from_spreadsheet()
     user_to_mention = await client.fetch_user(data_list[1][1])
     channel = search_channel(int(data_list[1][0]))
-    # await reply(message)
+    await reply(message)
     decrement_days_to_last()
     # await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
     
