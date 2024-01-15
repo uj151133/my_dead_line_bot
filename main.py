@@ -35,7 +35,7 @@ def judge_to_do_announce(days_to_last, now_hour):
   if(int(days_to_last) > 3):
     return False
   # 0時ちょうどの場合、アナウンスする
-  elif(now_hour == 18):
+  elif(now_hour % 12 == 11):
     return True
   # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
   elif(int(days_to_last) < 0 and now_hour % 3 == 0):
