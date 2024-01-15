@@ -6,6 +6,7 @@ import gspread
 import datetime
 from datetime import timedelta, timezone, datetime
 from discord.ext import tasks, commands
+
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
@@ -81,7 +82,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(reply)  # 返信メッセージを送信
+  await message.channel.send(なーに)  # 返信メッセージを送信
 
 
 
@@ -131,12 +132,13 @@ async def on_message(message):
     user_to_mention = await client.fetch_user(data_list[1][1])
     channel = search_channel(int(data_list[1][0]))
     await reply(message)
-    decrement_days_to_last()
+    # decrement_days_to_last()
+
     # await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
     
 @bot.command()
 async def ping(ctx):
-    await ctx.send('pong')
+  await ctx.send('pong')
 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
