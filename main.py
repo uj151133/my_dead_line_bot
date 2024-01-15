@@ -35,7 +35,7 @@ def judge_to_do_announce(days_to_last, now_hour):
   if(int(days_to_last) > 3):
     return False
   # 0時ちょうどの場合、アナウンスする
-  elif(now_hour == 17):
+  elif(now_hour == 18):
     return True
   # 〆切を過ぎたら3時間ごとに、9~24時にアナウンスを行う
   elif(int(days_to_last) < 0 and now_hour % 3 == 0):
@@ -82,7 +82,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(f"なーに")  # 返信メッセージを送信
+  await message.channel.send(f"なーに!")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
