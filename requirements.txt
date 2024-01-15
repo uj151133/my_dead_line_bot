@@ -1,6 +1,6 @@
 discord.py[voice]
 discord.py==2.1.1
 Flask==2.3.3
-Werkzeug==2.3.7
+Werkzeug==3.0.1
 google
 gspread
