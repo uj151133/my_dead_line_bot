@@ -140,6 +140,7 @@ async def on_message(message):
 async def ping(ctx):
   await ctx.send('pong')
 
+bot.add_command(ping)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
