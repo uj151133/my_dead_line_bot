@@ -137,10 +137,10 @@ async def on_message(message):
     # await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
     
 @bot.command()
-async def test(ctx):
+async def delete_deadline(ctx):
   await ctx.send('pong')
 
-bot.add_command(test)
+bot.add_command(delete_deadline)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
