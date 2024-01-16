@@ -59,7 +59,7 @@ def generate_message(user_to_mention, task, days_to_last):
   elif int(days_to_last) == 2:
     return f"{member_mention}まだ{task}終わってないの？いつになったらやるんかね。あと{days_to_last}日ね。"
   elif int(days_to_last) == 1:
-    return f"{member_mention}おい前日ににやるなって笑{task}そんなにすぐ終わらんて。今日は寝れないねー。"
+    return f"{member_mention}おい前日にやるなって笑{task}そんなすぐ終わらんて。今日は寝れないねー。"
   elif int(days_to_last) == 0:
     return f"{member_mention}今日だから。よろしくね。"
   elif int (days_to_last) < 0:
@@ -82,7 +82,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(f"なーに！")  # 返信メッセージを送信
+  await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
