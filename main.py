@@ -51,15 +51,17 @@ def search_channel(channel_id):
 def judge_whether_0minutes_now(now_minutes):
     return True if now_minutes == 0 else False
 
-def generate_message(user_to_mention, task, days_to_last):
+def generate_message(user_to_mention, task, days_to_last, now_hour):
   # member_mention = "<@" + str(user_to_mention) + ">"
   member_mention = user_to_mention.mention
   if int(days_to_last) == 3:
     return f"{member_mention}{task}が残ってるくさいよん。{days_to_last}日後だよん。"
   elif int(days_to_last) == 2:
     return f"{member_mention}まだ{task}終わってないの？いつになったらやるんかね。あと{days_to_last}日ね。"
-  elif int(days_to_last) == 1:
+  elif int(days_to_last) == 1 and int(now_hour) < 12:
     return f"{member_mention}おい前日にやるなって笑{task}そんなすぐ終わらんて。今日は寝れないねー。"
+  elif int(days_to_last) == 1 and int(now_hour) >= 12:
+    return f"{member_mention}{task}終わりそう？"
   elif int(days_to_last) == 0:
     return f"{member_mention}今日だから。よろしくね。"
   elif int (days_to_last) < 0:
@@ -108,7 +110,7 @@ async def reminder():
           user_id = int(data[1])
           user_to_mention = await client.fetch_user(user_id)
           task = data[3]
-          message = generate_message(user_to_mention, task, days_to_last)
+          message = generate_message(user_to_mention, task, days_to_last, now_hour)
           # アナウンスを行う
           await announce_deadline(channel, message)
 
