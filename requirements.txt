@@ -1,6 +1,6 @@
 discord.py[voice]
 discord.py==2.1.1
-Flask==2.3.3
+Flask==3.0.1
 Werkzeug==2.3.7
 google
 gspread
