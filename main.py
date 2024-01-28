@@ -45,6 +45,9 @@ def judge_to_do_announce(days_to_last, now_hour):
     return False
   # return True
 
+def force_announce():
+  return True
+
 def search_channel(channel_id):
   return client.get_channel(channel_id)
 
@@ -66,6 +69,10 @@ def generate_message(user_to_mention, task, days_to_last, now_hour):
     return f"{member_mention}今日だから。よろしくね。"
   elif int (days_to_last) < 0:
     return f"{member_mention}おや？おかしいな。"
+
+def mention_only(user_to_mention):
+  member_mention = user_to_mention.mention
+  return f"{member_mention}"
   
 
 async def announce_deadline(channel, message):
@@ -93,7 +100,7 @@ async def reminder():
     JST = timezone(timedelta(hours=+9), 'JST')
     now_minutes = datetime.now(JST).minute
     now_hour = datetime.now(JST).hour
-    if(judge_whether_0minutes_now(now_minutes)):  
+    if(judge_whether_0minutes_now(now_minutes)):
       # 0時0分の場合は〆切の残り日数を1減らす
       if(now_hour == 0):
         decrement_days_to_last()
@@ -103,14 +110,16 @@ async def reminder():
       for data in data_list:
         days_to_last = data[2]       
         # アナウンスを行うか判定している
-        if(judge_to_do_announce(days_to_last, now_hour)):
+        # if(judge_to_do_announce(days_to_last, now_hour)):
+        if (force_announce()):
           # アナウンスに必要な情報を集める
           channel_id = data[0]
           channel = search_channel(int(channel_id))
           user_id = int(data[1])
           user_to_mention = await client.fetch_user(user_id)
           task = data[3]
-          message = generate_message(user_to_mention, task, days_to_last, now_hour)
+          # message = generate_message(user_to_mention, task, days_to_last, now_hour)
+          message = mention_only(user_to_mention)
           # アナウンスを行う
           await announce_deadline(channel, message)
 
