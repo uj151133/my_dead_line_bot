@@ -94,10 +94,10 @@ def decrement_days_to_last() -> None:
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
   JST = timezone(timedelta(hours=+9), 'JST')
-    now_date = datetime.date(JST).day
-    now_month = datetime.date(JST).month
-    now_year = datetime(JST).year
-    now_day = datetime(JST).weekday()
+  now_date = datetime.date(JST).day
+  now_month = datetime.date(JST).month
+  now_year = datetime(JST).year
+  now_day = datetime(JST).weekday()
   # await message.channel.send(f"生きてる！")  # 返信メッセージを送信
   await message.channel.send(f"{now_day}")  # 返信メッセージを送信
 
