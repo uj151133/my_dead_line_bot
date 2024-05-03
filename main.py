@@ -83,7 +83,7 @@ async def remind_to_control_team():
   user_to_mention = await client.fetch_user(779696519002456084)
   member_mention = user_to_mention.mention
   channel_id = int(1193077399034810419)
-  message = f"{member_mention}\n2時間後の18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  message = f"{member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
   await channel.send(message)
 
 async def remind_to_strategy_team():
@@ -91,7 +91,7 @@ async def remind_to_strategy_team():
   user_to_mention = await client.fetch_user(779696519002456084)
   member_mention = user_to_mention.mention
   channel_id = int(1193077399034810419)
-  message = f"{member_mention}\n2時間後の18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  message = f"{member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
   await channel.send(message)
 
 def read_from_spreadsheet():
@@ -106,7 +106,11 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(f"生きてる！")  # 返信メッセージを送信
+  JST = timezone(timedelta(hours=+9), 'JST')
+  now_minutes = datetime.now(JST).minute
+  now_hour = datetime.now(JST).hour
+  # await message.channel.send(f"生きてる！")  # 返信メッセージを送信
+  await message.channel.send(f"{now_hour}")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
@@ -150,9 +154,6 @@ async def remind_MTG():
 
       elif now_day == 4 and now_hour == 17 -2: # 金曜日15時
         await remind_to_strategy_team()
-
-
-
 
 
 @client.event
