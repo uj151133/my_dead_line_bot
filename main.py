@@ -89,7 +89,7 @@ async def remind_to_control_team():
   sono_to_mention = await client.fetch_user(1123557824367169546)
   sono_mention = sono_to_mention.mention
   meeting_channel_id = int(744451720909684803)
-  message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
+  message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。 <#{meeting_channel_id}> にお集まりください。"
   await announce_deadline(control_channel, message)
 
 async def remind_to_strategy_team():
@@ -99,12 +99,16 @@ async def remind_to_strategy_team():
   mukuyo_to_mention = await client.fetch_user(741931644235153469)
   mukuyo_mention = mukuyo_to_mention.mention
   meeting_channel_id = int(744451720909684803)
-  message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
+  message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。 <#{meeting_channel_id}> にお集まりください。"
   await announce_deadline(strategy_channel, message)
 
 async def test():
   channel = search_channel(int(1193077398581817408))
-  message = "あ"
+  me_to_mention = await client.fetch_user(779696519002456084)
+  me_mention = me_to_mention.mention
+  channel_id = int(1196009568648568862)
+
+  message = f"{me_mention}\nあ<#{channel_id}>"
   await announce_deadline(channel, message)
 
 def read_from_spreadsheet():
