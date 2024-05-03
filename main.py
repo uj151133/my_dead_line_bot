@@ -83,15 +83,15 @@ async def remind_to_control_team():
   user_to_mention = await client.fetch_user(779696519002456084)
   member_mention = user_to_mention.mention
   channel_id = int(1193077399034810419)
-  message = f"{member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  message = f"{member_mention} {member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
   await channel.send(message)
 
 async def remind_to_strategy_team():
   channel = search_channel(int(1193077398581817408))
-  user_to_mention = await client.fetch_user(779696519002456084)
-  member_mention = user_to_mention.mention
+  kawakazu_to_mention = await client.fetch_user(779696519002456084)
+  kawakazu_mention = kawakazu_to_mention.mention
   channel_id = int(1193077399034810419)
-  message = f"{member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  message = f"{kawakazu_mention} \n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
   await channel.send(message)
 
 def read_from_spreadsheet():
@@ -166,6 +166,7 @@ async def on_message(message):
     await message.add_reaction(balloon)
     # data_list = read_from_spreadsheet()
     await reply(message)
+    await remind_to_control_team()
     
 @commands.command()
 async def delete_deadline(ctx):
