@@ -78,6 +78,21 @@ def mention_only(user_to_mention):
 async def announce_deadline(channel, message):
   await channel.send(message)
 
+async def remind_to_control_team():
+  channel = search_channel(int(1193077398581817408))
+  user_to_mention = await client.fetch_user(779696519002456084)
+  member_mention = user_to_mention.mention
+  channel_id = int(1193077399034810419)
+  message = f"{member_mention}\n2時間後の18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  await channel.send(message)
+
+async def remind_to_strategy_team():
+  channel = search_channel(int(1193077398581817408))
+  user_to_mention = await client.fetch_user(779696519002456084)
+  member_mention = user_to_mention.mention
+  channel_id = int(1193077399034810419)
+  message = f"{member_mention}\n2時間後の18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
+  await channel.send(message)
 
 def read_from_spreadsheet():
     return worksheet.get_all_values()
@@ -91,13 +106,7 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  JST = timezone(timedelta(hours=+9), 'JST')
-  now_date = datetime.now(JST).day
-  now_month = datetime.now(JST).month
-  now_year = datetime.now(JST).year
-  now_day = datetime.now(JST).weekday()
-  # await message.channel.send(f"生きてる！")  # 返信メッセージを送信
-  await message.channel.send(f"{now_day}")  # 返信メッセージを送信
+  await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
@@ -124,8 +133,7 @@ async def reminder():
           user_id = int(data[1])
           user_to_mention = await client.fetch_user(user_id)
           task = data[3]
-          # message = generate_message(user_to_mention, task, days_to_last, now_hour)
-          message = mention_only(user_to_mention)
+          message = generate_message(user_to_mention, task, days_to_last, now_hour)
           # アナウンスを行う
           await announce_deadline(channel, message)
 
@@ -133,11 +141,15 @@ async def reminder():
 async def remind_MTG():
   if(client.is_ready):
     JST = timezone(timedelta(hours=+9), 'JST')
-    now_date = datetime.now(JST).day
-    now_month = datetime.now(JST).month
-    now_year = datetime.now(JST).year
+    now_minutes = datetime.now(JST).minute
+    now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
-    # if now_day == 2: #水曜日
+    if(judge_whether_0minutes_now(now_minutes)):
+      if now_day == 2 and now_hour == 18 - 2: # 水曜日16時
+        await remind_to_control_team()
+
+      elif now_day == 4 and now_hour == 17 -2: # 金曜日15時
+        await remind_to_strategy_team()
 
 
 
@@ -160,9 +172,7 @@ async def on_message(message):
     # user_to_mention = await client.fetch_user(data_list[1][1])
     # channel = search_channel(int(data_list[1][0]))
     await reply(message)
-    # decrement_days_to_last()
-
-    # await channel.send(generate_message(user_to_mention, data_list[1][3], data_list[1][2]))
+    await remind_to_control_team()
     
 @commands.command()
 async def delete_deadline(ctx):
