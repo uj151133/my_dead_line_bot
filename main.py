@@ -103,7 +103,7 @@ async def remind_to_strategy_team():
   await announce_deadline(strategy_channel, message)
 
 async def test():
-  channel = search_channel(int(1195395364862296266))
+  channel = search_channel(int(1193077398581817408))
   message = "あ"
   await announce_deadline(channel, message)
 
