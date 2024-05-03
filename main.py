@@ -160,10 +160,10 @@ async def remind_MTG():
         await remind_to_strategy_team()
 
 
-@client.event
-async def on_ready():
-  print('ログインしました')
-  reminder.start()
+# @client.event
+# async def on_ready():
+#   print('ログインしました')
+#   reminder.start()
 
 @client.event
 async def on_message(message):
