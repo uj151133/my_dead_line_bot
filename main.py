@@ -7,6 +7,8 @@ import datetime
 from datetime import timedelta, timezone, datetime
 from discord.ext import tasks, commands
 
+import calender
+
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
@@ -91,7 +93,13 @@ def decrement_days_to_last() -> None:
 # 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
-  await message.channel.send(f"生きてる！")  # 返信メッセージを送信
+  JST = timezone(timedelta(hours=+9), 'JST')
+    now_date = datetime.date(JST).day
+    now_month = datetime.date(JST).month
+    now_year = datetime(JST).year
+    now_day = datetime(JST).weekday()
+  # await message.channel.send(f"生きてる！")  # 返信メッセージを送信
+  await message.channel.send(f"{now_day}")  # 返信メッセージを送信
 
 
 @tasks.loop(minutes=1)
@@ -110,8 +118,8 @@ async def reminder():
       for data in data_list:
         days_to_last = data[2]       
         # アナウンスを行うか判定している
-        # if(judge_to_do_announce(days_to_last, now_hour)):
-        if (force_announce()):
+        if(judge_to_do_announce(days_to_last, now_hour)):
+        # if (force_announce()):
           # アナウンスに必要な情報を集める
           channel_id = data[0]
           channel = search_channel(int(channel_id))
@@ -122,6 +130,20 @@ async def reminder():
           message = mention_only(user_to_mention)
           # アナウンスを行う
           await announce_deadline(channel, message)
+
+@tasks.loop(minutes=1)
+async def remind_MTG():
+  if(client.is_ready):
+    JST = timezone(timedelta(hours=+9), 'JST')
+    now_date = datetime.date(JST).day
+    now_month = datetime.date(JST).month
+    now_year = datetime(JST).year
+    now_day = datetime(JST).weekday()
+    # if now_day == 2: #水曜日
+
+
+
+
 
 @client.event
 async def on_ready():
