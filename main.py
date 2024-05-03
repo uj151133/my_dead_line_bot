@@ -166,7 +166,6 @@ async def on_message(message):
     await message.add_reaction(balloon)
     # data_list = read_from_spreadsheet()
     await reply(message)
-    await remind_to_control_team()
     
 @commands.command()
 async def delete_deadline(ctx):
