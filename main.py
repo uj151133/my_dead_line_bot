@@ -7,8 +7,6 @@ import datetime
 from datetime import timedelta, timezone, datetime
 from discord.ext import tasks, commands
 
-import calender
-
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
