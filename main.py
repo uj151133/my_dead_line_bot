@@ -92,10 +92,10 @@ def decrement_days_to_last() -> None:
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
   JST = timezone(timedelta(hours=+9), 'JST')
-  now_date = datetime.date(JST).day
-  now_month = datetime.date(JST).month
-  now_year = datetime(JST).year
-  now_day = datetime(JST).weekday()
+  now_date = datetime.now(JST).day
+  now_month = datetime.now(JST).month
+  now_year = datetime.now(JST).year
+  now_day = datetime.now(JST).weekday()
   # await message.channel.send(f"生きてる！")  # 返信メッセージを送信
   await message.channel.send(f"{now_day}")  # 返信メッセージを送信
 
@@ -133,10 +133,10 @@ async def reminder():
 async def remind_MTG():
   if(client.is_ready):
     JST = timezone(timedelta(hours=+9), 'JST')
-    now_date = datetime.date(JST).day
-    now_month = datetime.date(JST).month
-    now_year = datetime(JST).year
-    now_day = datetime(JST).weekday()
+    now_date = datetime.now(JST).day
+    now_month = datetime.now(JST).month
+    now_year = datetime.now(JST).year
+    now_day = datetime.now(JST).weekday()
     # if now_day == 2: #水曜日
 
 
