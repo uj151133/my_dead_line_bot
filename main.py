@@ -90,7 +90,7 @@ async def remind_to_control_team():
   sono_mention = sono_to_mention.mention
   meeting_channel_id = int(744451720909684803)
   message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
-  await control_channel.send(message)
+  await announce_deadline(control_channel, message)
 
 async def remind_to_strategy_team():
   strategy_channel = search_channel(int(1207696587464249374))
@@ -100,11 +100,12 @@ async def remind_to_strategy_team():
   mukuyo_mention = mukuyo_to_mention.mention
   meeting_channel_id = int(744451720909684803)
   message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
-  await strategy_channel.send(message)
+  await announce_deadline(strategy_channel, message)
 
 async def test():
   channel = search_channel(int(1195395364862296266))
-  await channel.send("あ")
+  message = "あ"
+  await announce_deadline(channel, message)
 
 def read_from_spreadsheet():
     return worksheet.get_all_values()
