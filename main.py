@@ -117,7 +117,7 @@ async def reply(message):
   await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
 
-# @tasks.loop(minutes=1)
+@tasks.loop(minutes=1)
 async def reminder():
   if(client.is_ready):   
     JST = timezone(timedelta(hours=+9), 'JST')
@@ -160,10 +160,10 @@ async def remind_MTG():
         await remind_to_strategy_team()
 
 
-# @client.event
-# async def on_ready():
-#   print('ログインしました')
-#   reminder.start()
+@client.event
+async def on_ready():
+  print('ログインしました')
+  remind_MTG.start()
 
 @client.event
 async def on_message(message):
