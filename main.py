@@ -153,9 +153,9 @@ async def remind_MTG():
     now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
     if(judge_whether_0minutes_now(now_minutes)):
-      if now_day == 2 and now_hour == 18 - 2:
+      if now_day == 2 and now_hour == 16:
         await remind_to_control_team()
-      elif now_day == 4 and now_hour == 17 - 2:
+      elif now_day == 4 and now_hour == 15:
         await remind_to_strategy_team()
 
 
