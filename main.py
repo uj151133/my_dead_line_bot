@@ -145,10 +145,9 @@ async def remind_MTG():
     now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
     if(judge_whether_0minutes_now(now_minutes)):
-      if now_day == 2 and now_hour == 18 - 2: # 水曜日16時
+      if now_day == 2 and now_hour == 18 - 2:
         await remind_to_control_team()
-
-      elif now_day == 4 and now_hour == 17 -2: # 金曜日15時
+      elif now_day == 4 and now_hour == 17 - 2:
         await remind_to_strategy_team()
 
 
@@ -166,10 +165,7 @@ async def on_message(message):
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
     # data_list = read_from_spreadsheet()
-    # user_to_mention = await client.fetch_user(data_list[1][1])
-    # channel = search_channel(int(data_list[1][0]))
     await reply(message)
-    await remind_to_control_team()
     
 @commands.command()
 async def delete_deadline(ctx):
