@@ -102,6 +102,10 @@ async def remind_to_strategy_team():
   message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
   await strategy_channel.send(message)
 
+async def test():
+  channel = search_channel(int(1195395364862296266))
+  await channel.send("あ")
+
 def read_from_spreadsheet():
     return worksheet.get_all_values()
 
@@ -115,7 +119,6 @@ def decrement_days_to_last() -> None:
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
   await message.channel.send(f"生きてる！")  # 返信メッセージを送信
-
 
 @tasks.loop(minutes=1)
 async def reminder():
@@ -151,8 +154,7 @@ async def remind_MTG():
     now_minutes = datetime.now(JST).minute
     now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
-    channel = search_channel(int(1195395364862296266))
-    await channel.send("あ")
+    await test()
     if(judge_whether_0minutes_now(now_minutes)):
       if now_day == 2 and now_hour == 16:
         await remind_to_control_team()
