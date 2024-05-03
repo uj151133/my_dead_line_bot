@@ -79,20 +79,28 @@ async def announce_deadline(channel, message):
   await channel.send(message)
 
 async def remind_to_control_team():
-  channel = search_channel(int(1193077398581817408))
-  user_to_mention = await client.fetch_user(779696519002456084)
-  member_mention = user_to_mention.mention
-  channel_id = int(1193077399034810419)
-  message = f"{member_mention} {member_mention}\n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
-  await channel.send(message)
+  control_channel = search_channel(int(1037639821675466813))
+  bunichi_to_mention = await client.fetch_user(960468268659904562)
+  bunichi_mention = bunichi_to_mention.mention
+  tamagoham_to_mention = await client.fetch_user(191162832514056193)
+  tamagoham_mention = tamagoham_to_mention.mention
+  tomix_to_mention = await client.fetch_user(552863071702614056)
+  tomix_mention = tomix_to_mention.mention
+  sono_to_mention = await client.fetch_user(1123557824367169546)
+  sono_mention = sono_to_mention.mention
+  meeting_channel_id = int(744451720909684803)
+  message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
+  await control_channel.send(message)
 
 async def remind_to_strategy_team():
-  channel = search_channel(int(1193077398581817408))
+  strategy_channel = search_channel(int(1207696587464249374))
   kawakazu_to_mention = await client.fetch_user(779696519002456084)
   kawakazu_mention = kawakazu_to_mention.mention
-  channel_id = int(1193077399034810419)
-  message = f"{kawakazu_mention} \n2時間後、18時から制御班でMTGを行います。<#{channel_id}>にお集まりください。"
-  await channel.send(message)
+  mukuyo_to_mention = await client.fetch_user(741931644235153469)
+  mukuyo_mention = mukuyo_to_mention.mention
+  meeting_channel_id = int(744451720909684803)
+  message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。<#{meeting_channel_id}>にお集まりください。"
+  await strategy_channel.send(message)
 
 def read_from_spreadsheet():
     return worksheet.get_all_values()
