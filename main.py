@@ -117,7 +117,7 @@ async def reply(message):
   await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
 
-@tasks.loop(minutes=1)
+# @tasks.loop(minutes=1)
 async def reminder():
   if(client.is_ready):   
     JST = timezone(timedelta(hours=+9), 'JST')
@@ -134,7 +134,6 @@ async def reminder():
         days_to_last = data[2]       
         # アナウンスを行うか判定している
         if(judge_to_do_announce(days_to_last, now_hour)):
-        # if (force_announce()):
           # アナウンスに必要な情報を集める
           channel_id = data[0]
           channel = search_channel(int(channel_id))
@@ -153,7 +152,7 @@ async def remind_MTG():
     now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
     channel = search_channel(int(1195395364862296266))
-    await channel.send("あk")
+    await channel.send("あ")
     if(judge_whether_0minutes_now(now_minutes)):
       if now_day == 2 and now_hour == 16:
         await remind_to_control_team()
@@ -174,7 +173,6 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    # data_list = read_from_spreadsheet()
     await reply(message)
     
 @commands.command()
