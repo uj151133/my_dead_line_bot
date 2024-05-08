@@ -179,7 +179,7 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    await reply(message)
+    # await reply(message)
     
 @commands.command()
 async def delete_deadline(ctx):
