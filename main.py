@@ -125,45 +125,45 @@ async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
   await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
-@tasks.loop(minutes=1)
-async def reminder():
-  if(client.is_ready):   
-    JST = timezone(timedelta(hours=+9), 'JST')
-    now_minutes = datetime.now(JST).minute
-    now_hour = datetime.now(JST).hour
-    if(judge_whether_0minutes_now(now_minutes)):
-      # 0時0分の場合は〆切の残り日数を1減らす
-      if(now_hour == 0):
-        decrement_days_to_last()
-      # 0分の場合、現在時刻と〆切残り日数より、アナウンスを行うか判定する
-      all_data_list = read_from_spreadsheet()
-      data_list = all_data_list[1:]
-      for data in data_list:
-        days_to_last = data[2]       
-        # アナウンスを行うか判定している
-        if(judge_to_do_announce(days_to_last, now_hour)):
-          # アナウンスに必要な情報を集める
-          channel_id = data[0]
-          channel = search_channel(int(channel_id))
-          user_id = int(data[1])
-          user_to_mention = await client.fetch_user(user_id)
-          task = data[3]
-          message = generate_message(user_to_mention, task, days_to_last, now_hour)
-          # アナウンスを行う
-          await announce_deadline(channel, message)
+# @tasks.loop(minutes=1)
+# async def reminder():
+#   if(client.is_ready):
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     now_minutes = datetime.now(JST).minute
+#     now_hour = datetime.now(JST).hour
+#     if(judge_whether_0minutes_now(now_minutes)):
+#       # 0時0分の場合は〆切の残り日数を1減らす
+#       if(now_hour == 0):
+#         decrement_days_to_last()
+#       # 0分の場合、現在時刻と〆切残り日数より、アナウンスを行うか判定する
+#       all_data_list = read_from_spreadsheet()
+#       data_list = all_data_list[1:]
+#       for data in data_list:
+#         days_to_last = data[2]
+#         # アナウンスを行うか判定している
+#         if(judge_to_do_announce(days_to_last, now_hour)):
+#           # アナウンスに必要な情報を集める
+#           channel_id = data[0]
+#           channel = search_channel(int(channel_id))
+#           user_id = int(data[1])
+#           user_to_mention = await client.fetch_user(user_id)
+#           task = data[3]
+#           message = generate_message(user_to_mention, task, days_to_last, now_hour)
+#           # アナウンスを行う
+#           await announce_deadline(channel, message)
 
-@tasks.loop(minutes=1)
-async def remind_MTG():
-  if(client.is_ready):
-    JST = timezone(timedelta(hours=+9), 'JST')
-    now_minutes = datetime.now(JST).minute
-    now_hour = datetime.now(JST).hour
-    now_day = datetime.now(JST).weekday()
-    if(judge_whether_0minutes_now(now_minutes)):
-      if now_day == 2 and now_hour == 16:
-        await remind_to_control_team()
-      elif now_day == 4 and now_hour == 15:
-        await remind_to_strategy_team()
+# @tasks.loop(minutes=1)
+# async def remind_MTG():
+#   if(client.is_ready):
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     now_minutes = datetime.now(JST).minute
+#     now_hour = datetime.now(JST).hour
+#     now_day = datetime.now(JST).weekday()
+#     if(judge_whether_0minutes_now(now_minutes)):
+#       if now_day == 2 and now_hour == 16:
+#         await remind_to_control_team()
+#       elif now_day == 4 and now_hour == 15:
+#         await remind_to_strategy_team()
 
 
 @client.event
