@@ -169,7 +169,7 @@ async def reply(message):
 @client.event
 async def on_ready():
   print('ログインしました')
-  remind_MTG.start()
+  # remind_MTG.start()
 
 @client.event
 async def on_message(message):
