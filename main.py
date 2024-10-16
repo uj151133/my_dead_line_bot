@@ -124,8 +124,10 @@ async def test():
   now_day = datetime.now(JST).day
   now_month = datetime.now(JST).month
   now_year = datetime.now(JST).year
-
-  message = f"<@&{test_role_id}>\n {now_year}\n {now_month}\n {now_day}\n {now_hour}\n あ {channel_link}"
+  is_goal_hour = now_hour == 2
+  is_goal_day = now_day == 17
+  is_goal_month = now_month == 10
+  message = f"<@&{test_role_id}>\n {now_year}\n {now_month}{is_goal_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
   await announce(channel, message)
 
 def read_from_spreadsheet():
