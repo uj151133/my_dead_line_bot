@@ -115,9 +115,6 @@ async def test():
   me_to_mention = await client.fetch_user(779696519002456084)
   me_mention = me_to_mention.mention
   test_role_id = int(1296100323537977356)
-  # test_role_to_mention = await client.fetch_user(test_role_id)
-  # test_role_mention = test_role_to_mention.mention
-  channel_id = int(1193077399034810419)
   channel_link = "https://discord.com/channels/1193077398581817405/1193077399034810419"
 
   JST = timezone(timedelta(hours=+9), 'JST')
@@ -192,13 +189,13 @@ async def remind_review_MTG():
     JST = timezone(timedelta(hours=+9), 'JST')
     now_minute = datetime.now(JST).minute
     now_hour = datetime.now(JST).hour
-    now_day = datetime.now(JST).weekday()
-    now_date = datetime.now(JST).date
+    now_weekday = datetime.now(JST).weekday()
+    now_day = datetime.now(JST).day
     now_month = datetime.now(JST).month
     now_year = datetime.now(JST).year
 
     if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 23 and now_date == 16 and now_month == 10 and now_year == 2024:
+      if now_hour == 0 and now_day == 17 and now_month == 10 and now_year == 2024:
         await test()
       # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
       #   await make_gather_meeting_room()
