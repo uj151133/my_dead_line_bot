@@ -119,7 +119,15 @@ async def test():
   channel_id = int(1193077399034810419)
   channel_link = "https://discord.com/channels/1193077398581817405/1193077399034810419"
 
-  message = f"{test_role_mention}\nあ {channel_link}"
+  JST = timezone(timedelta(hours=+9), 'JST')
+  now_minute = datetime.now(JST).minute
+  now_hour = datetime.now(JST).hour
+  now_day = datetime.now(JST).weekday()
+  now_date = datetime.now(JST).date
+  now_month = datetime.now(JST).month
+  now_year = datetime.now(JST).year
+
+  message = f"{test_role_mention} {now_year}\n {now_month}\n {now_date}\n {now_hour}\n {now_minute}あ {channel_link}"
   await announce(channel, message)
 
 def read_from_spreadsheet():
@@ -181,14 +189,14 @@ async def reply(message):
 async def remind_review_MTG():
   if(client.is_ready):
     JST = timezone(timedelta(hours=+9), 'JST')
-    now_minutes = datetime.now(JST).minute
+    now_minute = datetime.now(JST).minute
     now_hour = datetime.now(JST).hour
     now_day = datetime.now(JST).weekday()
     now_date = datetime.now(JST).date
     now_month = datetime.now(JST).month
     now_year = datetime.now(JST).year
 
-    if(judge_whether_0minutes_now(now_minutes)):
+    if(judge_whether_0minutes_now(now_minute)):
       if now_hour == 23 and now_date == 16 and now_month == 10 and now_year == 2024:
         await test()
       # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
@@ -208,6 +216,7 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
+    await test()
     await reply(message)
     
 @commands.command()
