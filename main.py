@@ -117,8 +117,9 @@ async def test():
   test_role_to_mention = await client.fetch_user(1296100323537977356)
   test_role_mention = test_role_to_mention.mention
   channel_id = int(1193077399034810419)
+  channel_link = "https://discord.com/channels/1193077398581817405/1193077399034810419"
 
-  message = f"{test_role_mention}\nあ<#{channel_id}>"
+  message = f"{test_role_mention}\nあ {channel_link}"
   await announce(channel, message)
 
 def read_from_spreadsheet():
