@@ -114,8 +114,8 @@ async def test():
   channel = search_channel(int(1193077398581817408))
   me_to_mention = await client.fetch_user(779696519002456084)
   me_mention = me_to_mention.mention
-  test_role_to_mention = await client.fetch_user(1296100323537977356)
-  test_role_mention = test_role_to_mention.mention
+  # test_role_to_mention = await client.fetch_user(1296100323537977356)
+  # test_role_mention = test_role_to_mention.mention
   channel_id = int(1193077399034810419)
   channel_link = "https://discord.com/channels/1193077398581817405/1193077399034810419"
 
@@ -127,7 +127,7 @@ async def test():
   now_month = datetime.now(JST).month
   now_year = datetime.now(JST).year
 
-  message = f"{test_role_mention} {now_year}\n {now_month}\n {now_date}\n {now_hour}\n {now_minute}あ {channel_link}"
+  message = f"{me_mention} {now_year}\n {now_month}\n {now_date}\n {now_hour}\n {now_minute}あ {channel_link}"
   await announce(channel, message)
 
 def read_from_spreadsheet():
