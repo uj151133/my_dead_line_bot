@@ -124,11 +124,12 @@ async def test():
   now_day = datetime.now(JST).day
   now_month = datetime.now(JST).month
   now_year = datetime.now(JST).year
-  is_goal_hour = now_hour == 3
+  is_goal_hour = now_hour == 4
   is_goal_day = now_day == 17
   is_goal_month = now_month == 10
+  is_goal_year = now_year == 2024
   # if now_hour == 2 and now_day == 17:
-  message = f"<@&{test_role_id}>\n {now_year}\n {now_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
+  message = f"<@&{test_role_id}>\n {now_year}{is_goal_year}\n {now_month}{is_goal_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
   await announce(channel, message)
 
 def read_from_spreadsheet():
@@ -198,7 +199,7 @@ async def remind_review_MTG():
     now_year = datetime.now(JST).year
 
     if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 3 and now_day == 17:
+      if now_hour == 4 and now_day == 17 and now_month == 10 and now_year == 2024:
         await test()
       # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
       #   await make_gather_meeting_room()
@@ -207,7 +208,7 @@ async def remind_review_MTG():
 @client.event
 async def on_ready():
   print('ログインしました')
-  # remind_MTG.start()
+  remind_review_MTG.start()
 
 @client.event
 async def on_message(message):
