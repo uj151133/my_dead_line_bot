@@ -68,14 +68,14 @@ def generate_message(user_to_mention, task, days_to_last, now_hour):
   elif int(days_to_last) == 0:
     return f"{member_mention}今日だから。よろしくね。"
   elif int (days_to_last) < 0:
-    return f"{member_mention}おや？おかしいな。"
+    return f"{member_mention}あれ？おかしいな。"
 
 def mention_only(user_to_mention):
   member_mention = user_to_mention.mention
   return f"{member_mention}"
-  
 
-async def announce_deadline(channel, message):
+
+async def announce(channel, message):
   await channel.send(message)
 
 async def remind_to_control_team():
@@ -90,7 +90,7 @@ async def remind_to_control_team():
   sono_mention = sono_to_mention.mention
   meeting_channel_id = int(744451720909684803)
   message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。 <#{meeting_channel_id}> にお集まりください。"
-  await announce_deadline(control_channel, message)
+  await announce(control_channel, message)
 
 async def remind_to_strategy_team():
   strategy_channel = search_channel(int(1207696587464249374))
@@ -100,16 +100,26 @@ async def remind_to_strategy_team():
   mukuyo_mention = mukuyo_to_mention.mention
   meeting_channel_id = int(744451720909684803)
   message = f"{kawakazu_mention} {mukuyo_mention}\n2時間後、17時から戦略班でMTGを行います。 <#{meeting_channel_id}> にお集まりください。"
-  await announce_deadline(strategy_channel, message)
+  await announce(strategy_channel, message)
+
+async def make_gather_meeting_room():
+  announce_channel = search_channel(int(761166684148596737))
+  meeting_channel_id = int(744451720909684803)
+  member_to_mention = await client.fetch_user()
+  member_mention = member_to_mention.mention
+  message = f"{member_mention}\n ↑ <#{meeting_channel_id}> きて"
+  await announce(announce_channel, message)
 
 async def test():
   channel = search_channel(int(1193077398581817408))
   me_to_mention = await client.fetch_user(779696519002456084)
   me_mention = me_to_mention.mention
-  channel_id = int(1196009568648568862)
+  test_role_to_mention = await client.fetch_user(1296100323537977356)
+  test_role_mention = test_role_to_mention.mention
+  channel_id = int(1193077399034810419)
 
-  message = f"{me_mention}\nあ<#{channel_id}>"
-  await announce_deadline(channel, message)
+  message = f"{test_role_mention}\nあ<#{channel_id}>"
+  await announce(channel, message)
 
 def read_from_spreadsheet():
     return worksheet.get_all_values()
@@ -150,7 +160,7 @@ async def reply(message):
 #           task = data[3]
 #           message = generate_message(user_to_mention, task, days_to_last, now_hour)
 #           # アナウンスを行う
-#           await announce_deadline(channel, message)
+#           await announce(channel, message)
 
 # @tasks.loop(minutes=1)
 # async def remind_MTG():
@@ -166,6 +176,24 @@ async def reply(message):
 #         await remind_to_strategy_team()
 
 
+@tasks.loop(minutes=1)
+async def remind_review_MTG():
+  if(client.is_ready):
+    JST = timezone(timedelta(hours=+9), 'JST')
+    now_minutes = datetime.now(JST).minute
+    now_hour = datetime.now(JST).hour
+    now_day = datetime.now(JST).weekday()
+    now_date = datetime.now(JST).date
+    now_month = datetime.now(JST).month
+    now_year = datetime.now(JST).year
+
+    if(judge_whether_0minutes_now(now_minutes)):
+      if now_hour == 23 and now_date == 16 and now_month == 10 and now_year == 2024:
+        await test()
+      # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
+      #   await make_gather_meeting_room()
+
+
 @client.event
 async def on_ready():
   print('ログインしました')
@@ -179,7 +207,7 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    # await reply(message)
+    await reply(message)
     
 @commands.command()
 async def delete_deadline(ctx):
