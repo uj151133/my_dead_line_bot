@@ -198,10 +198,8 @@ async def remind_review_MTG():
     now_year = datetime.now(JST).year
 
     if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 12 and now_day == 17 and now_month == 10 and now_year == 2024:
-        await test()
-      # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
-      #   await make_gather_meeting_room()
+      if now_hour == 18 and now_day == 17 and now_month == 10 and now_year == 2024:
+        await make_gather_meeting_room()
 
 
 @client.event
@@ -217,8 +215,8 @@ async def on_message(message):
   if client.user in message.mentions:  # 話しかけられたかの判定
     balloon = '\N{BALLOON}'
     await message.add_reaction(balloon)
-    await test()
-    await reply(message)
+    # await test()
+    # await reply(message)
     
 @commands.command()
 async def delete_deadline(ctx):
