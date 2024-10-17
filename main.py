@@ -104,10 +104,9 @@ async def remind_to_strategy_team():
 
 async def make_gather_meeting_room():
   announce_channel = search_channel(int(761166684148596737))
-  meeting_channel_id = int(744451720909684803)
-  member_to_mention = await client.fetch_user()
-  member_mention = member_to_mention.mention
-  message = f"{member_mention}\n ↑ <#{meeting_channel_id}> きて"
+  meeting_channel_link = "https://discord.com/channels/744451720909684798/744451720909684803"
+  member_role_id = int(744485104298098698)
+  message = f"<@&{member_role_id}>\n ↑ {meeting_channel_link} きて"
   await announce(announce_channel, message)
 
 async def test():
@@ -124,7 +123,7 @@ async def test():
   now_day = datetime.now(JST).day
   now_month = datetime.now(JST).month
   now_year = datetime.now(JST).year
-  is_goal_hour = now_hour == 4
+  is_goal_hour = now_hour == 12
   is_goal_day = now_day == 17
   is_goal_month = now_month == 10
   is_goal_year = now_year == 2024
@@ -199,7 +198,7 @@ async def remind_review_MTG():
     now_year = datetime.now(JST).year
 
     if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 4 and now_day == 17 and now_month == 10 and now_year == 2024:
+      if now_hour == 12 and now_day == 17 and now_month == 10 and now_year == 2024:
         await test()
       # if now_hour == 18 and now_date == 17 and now_month == 10 and now_year == 2024:
       #   await make_gather_meeting_room()
