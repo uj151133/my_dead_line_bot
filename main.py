@@ -186,26 +186,26 @@ async def reply(message):
 #         await remind_to_strategy_team()
 
 
-@tasks.loop(minutes=1)
-async def remind_review_MTG():
-  if(client.is_ready):
-    JST = timezone(timedelta(hours=+9), 'JST')
-    now_minute = datetime.now(JST).minute
-    now_hour = datetime.now(JST).hour
-    now_weekday = datetime.now(JST).weekday()
-    now_day = datetime.now(JST).day
-    now_month = datetime.now(JST).month
-    now_year = datetime.now(JST).year
+# @tasks.loop(minutes=1)
+# async def remind_review_MTG():
+#   if(client.is_ready):
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     now_minute = datetime.now(JST).minute
+#     now_hour = datetime.now(JST).hour
+#     now_weekday = datetime.now(JST).weekday()
+#     now_day = datetime.now(JST).day
+#     now_month = datetime.now(JST).month
+#     now_year = datetime.now(JST).year
 
-    if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 18 and now_day == 17 and now_month == 10 and now_year == 2024:
-        await make_gather_meeting_room()
+#     if(judge_whether_0minutes_now(now_minute)):
+#       if now_hour == 18 and now_day == 17 and now_month == 10 and now_year == 2024:
+#         await make_gather_meeting_room()
 
 
 @client.event
 async def on_ready():
   print('ログインしました')
-  remind_review_MTG.start()
+  # remind_review_MTG.start()
 
 @client.event
 async def on_message(message):
