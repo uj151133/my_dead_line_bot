@@ -121,7 +121,7 @@ async def remind_to_both_TDP():
   await announce(tdp_channel, message)
 
 async def test():
-  channel = search_channel(int(1193077398581817408))
+  general_channel = search_channel(int(1193077398581817408))
   me_to_mention = await client.fetch_user(779696519002456084)
   me_mention = me_to_mention.mention
   test_role_id = int(1296100323537977356)
@@ -137,7 +137,7 @@ async def test():
   # if now_hour == 2 and now_day == 17:
   # message = f"<@&{test_role_id}>\n {now_year}{is_goal_year}\n {now_month}{is_goal_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
   message = f"{me_mention}\n リマインドされなくてもできるよね。"
-  await announce(channel, message)
+  await announce(general_channel, message)
 
 def read_from_spreadsheet():
     return worksheet.get_all_values()
@@ -221,14 +221,10 @@ async def remind_TDP_2025():
     now_day = datetime.now(JST).day
     now_month = datetime.now(JST).month
     now_year = datetime.now(JST).year
-    
-    if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 14 and now_day == 6 and now_month == 1 and now_year == 2025:
-        await test()
 
-    # if(judge_whether_0minutes_now(now_minute)):
-    #   if now_hour == 12 and now_day == 8 and now_month == 1 and now_year == 2025:
-    #     await remind_to_both_TDP()
+    if(judge_whether_0minutes_now(now_minute)):
+      if now_hour == 12 and now_day == 8 and now_month == 1 and now_year == 2025:
+        await remind_to_both_TDP()
 
 @client.event
 async def on_ready():
