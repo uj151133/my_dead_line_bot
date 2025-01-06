@@ -54,7 +54,7 @@ def search_channel(channel_id):
 def judge_whether_0minutes_now(now_minute):
     return True if now_minute == 0 else False
 
-def generate_message(user_to_mention, task, days_to_last, now_hour):
+def generate_message_for_soft_TDP(user_to_mention, task, days_to_last, now_hour):
   # member_mention = "<@" + str(user_to_mention) + ">"
   member_mention = user_to_mention.mention
   if int(days_to_last) == 3:
@@ -78,6 +78,7 @@ def mention_only(user_to_mention):
 async def announce(channel, message):
   await channel.send(message)
 
+#2024年の制御班MTGのリマインド
 async def remind_to_control_team():
   control_channel = search_channel(int(1037639821675466813))
   bunichi_to_mention = await client.fetch_user(960468268659904562)
@@ -92,6 +93,7 @@ async def remind_to_control_team():
   message = f"{bunichi_mention} {tamagoham_mention} {tomix_mention} {sono_mention}\n2時間後、18時から制御班でMTGを行います。 <#{meeting_channel_id}> にお集まりください。"
   await announce(control_channel, message)
 
+#2024年の戦略班MTGのリマインド
 async def remind_to_strategy_team():
   strategy_channel = search_channel(int(1207696587464249374))
   kawakazu_to_mention = await client.fetch_user(779696519002456084)
@@ -109,6 +111,15 @@ async def make_gather_meeting_room():
   message = f"<@&{member_role_id}>\n ↑ {meeting_channel_link} きて"
   await announce(announce_channel, message)
 
+async def remind_to_both_TDP():
+  tdp_channel = search_channel(int(1318679960197660702))
+  bunichi_to_mention = await client.fetch_user(960468268659904562)
+  bunichi_mention = bunichi_to_mention.mention
+  riku_to_mention = await client.fetch_user(930122639220027472)
+  riku_mention = riku_to_mention.mention
+  message = f"{bunichi_mention} {riku_mention}\n今日中にTDP日本語版お願いね。リマインドされなくてもできるよね。"
+  await announce(tdp_channel, message)
+
 async def test():
   channel = search_channel(int(1193077398581817408))
   me_to_mention = await client.fetch_user(779696519002456084)
@@ -123,12 +134,9 @@ async def test():
   now_day = datetime.now(JST).day
   now_month = datetime.now(JST).month
   now_year = datetime.now(JST).year
-  is_goal_hour = now_hour == 12
-  is_goal_day = now_day == 17
-  is_goal_month = now_month == 10
-  is_goal_year = now_year == 2024
   # if now_hour == 2 and now_day == 17:
-  message = f"<@&{test_role_id}>\n {now_year}{is_goal_year}\n {now_month}{is_goal_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
+  # message = f"<@&{test_role_id}>\n {now_year}{is_goal_year}\n {now_month}{is_goal_month}\n {now_day}{is_goal_day}\n {now_hour}{is_goal_hour}\n あ {channel_link}"
+  message = f"{me_mention}\n リマインドされなくてもできるよね。"
   await announce(channel, message)
 
 def read_from_spreadsheet():
@@ -140,13 +148,13 @@ def decrement_days_to_last() -> None:
         worksheet.update_cell(i, 3, str(int(col_list[i - 1]) - 1))
     return
 
-# 返信する非同期関数を定義
 async def reply(message):
   reply = f'{message.author.mention} 〆切を登録しました。'  # 返信メッセージの作成
   await message.channel.send(f"生きてる！")  # 返信メッセージを送信
 
+#2024年TDPのリマインド
 # @tasks.loop(minutes=1)
-# async def reminder():
+# async def reminder_TDP_2024():
 #   if(client.is_ready):
 #     JST = timezone(timedelta(hours=+9), 'JST')
 #     now_minutes = datetime.now(JST).minute
@@ -168,10 +176,11 @@ async def reply(message):
 #           user_id = int(data[1])
 #           user_to_mention = await client.fetch_user(user_id)
 #           task = data[3]
-#           message = generate_message(user_to_mention, task, days_to_last, now_hour)
+#           message = generate_message_for_soft_TDP(user_to_mention, task, days_to_last, now_hour)
 #           # アナウンスを行う
 #           await announce(channel, message)
 
+# 2024年世界大会に向けての制御戦略班MTGのリマインド
 # @tasks.loop(minutes=1)
 # async def remind_MTG():
 #   if(client.is_ready):
@@ -185,7 +194,7 @@ async def reply(message):
 #       elif now_day == 4 and now_hour == 15:
 #         await remind_to_strategy_team()
 
-
+#2024年の交流会の反省会(2024/10/17 18:00)のリマインド
 # @tasks.loop(minutes=1)
 # async def remind_review_MTG():
 #   if(client.is_ready):
@@ -201,11 +210,30 @@ async def reply(message):
 #       if now_hour == 18 and now_day == 17 and now_month == 10 and now_year == 2024:
 #         await make_gather_meeting_room()
 
+#2025年のTDPのリマインド
+@tasks.loop(minutes=1)
+async def remind_TDP_2025():
+  if(client.is_ready):
+    JST = timezone(timedelta(hours=+9), 'JST')
+    now_minute = datetime.now(JST).minute
+    now_hour = datetime.now(JST).hour
+    now_weekday = datetime.now(JST).weekday()
+    now_day = datetime.now(JST).day
+    now_month = datetime.now(JST).month
+    now_year = datetime.now(JST).year
+    
+    if(judge_whether_0minutes_now(now_minute)):
+      if now_hour == 14 and now_day == 6 and now_month == 1 and now_year == 2025:
+        await test()
+
+    # if(judge_whether_0minutes_now(now_minute)):
+    #   if now_hour == 12 and now_day == 8 and now_month == 1 and now_year == 2025:
+    #     await remind_to_both_TDP()
 
 @client.event
 async def on_ready():
   print('ログインしました')
-  # remind_review_MTG.start()
+  remind_TDP_2025.start()
 
 @client.event
 async def on_message(message):
