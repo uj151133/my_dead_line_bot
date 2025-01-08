@@ -212,24 +212,24 @@ async def reply(message):
 
 #2025年のTDPのリマインド
 @tasks.loop(minutes=1)
-async def remind_TDP_2025():
-  if(client.is_ready):
-    JST = timezone(timedelta(hours=+9), 'JST')
-    now_minute = datetime.now(JST).minute
-    now_hour = datetime.now(JST).hour
-    now_weekday = datetime.now(JST).weekday()
-    now_day = datetime.now(JST).day
-    now_month = datetime.now(JST).month
-    now_year = datetime.now(JST).year
+# async def remind_TDP_2025():
+#   if(client.is_ready):
+#     JST = timezone(timedelta(hours=+9), 'JST')
+#     now_minute = datetime.now(JST).minute
+#     now_hour = datetime.now(JST).hour
+#     now_weekday = datetime.now(JST).weekday()
+#     now_day = datetime.now(JST).day
+#     now_month = datetime.now(JST).month
+#     now_year = datetime.now(JST).year
 
-    if(judge_whether_0minutes_now(now_minute)):
-      if now_hour == 12 and now_day == 8 and now_month == 1 and now_year == 2025:
-        await remind_to_both_TDP()
+#     if(judge_whether_0minutes_now(now_minute)):
+#       if now_hour == 12 and now_day == 8 and now_month == 1 and now_year == 2025:
+#         await remind_to_both_TDP()
 
 @client.event
 async def on_ready():
   print('ログインしました')
-  remind_TDP_2025.start()
+  # remind_TDP_2025.start()
 
 @client.event
 async def on_message(message):
